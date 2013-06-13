@@ -1,0 +1,18 @@
+# Ignore installed node modules.
+node_modules/*
+
+# Ignore build artifacts
+vendor/**
+dist/**
+test-results/**
+
+# Ignore idea files
+.idea/*
+
+# Openlayers build files
+**.pyc
+
+
+
+
+
