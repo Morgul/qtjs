@@ -1,0 +1,26 @@
+{
+  "name": "Qtjs",
+  "version": "0.1.0",
+  "description": "An implementation of QList, QString and QHash ontop of Javascript's Array, String, and Object.",
+  "main": "qt.js",
+  "scripts": {
+    "test": "./node_modules/.bin/karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Morgul/qtjs.git"
+  },
+  "keywords": [
+    "qt"
+  ],
+  "author": "Christopher S. Case <chris.case@g33xnexus.com>",
+  "license": "MIT",
+  "readmeFilename": "Readme.md",
+  "gitHead": "6a8ea41ba9d6aa5a92266fd2315b4e8f62e5afba",
+  "bugs": {
+    "url": "https://github.com/Morgul/qtjs/issues"
+  },
+  "dependencies": {
+    "karma": "~0.8.5"
+  }
+}

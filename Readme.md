@@ -25,6 +25,23 @@ in these custom types constantly.
 I have considered having a version of this library that does exactly that. So the developer can choose which method he'd
 prefer. That's not what it does currently, but I'm open to it.
 
+## Unit tests
+
+First, install node.js. Then, simply:
+
+```bash
+$ npm install
+```
+
+Once that completes, you can run the unit tests with:
+
+```bash
+$ npm test
+```
+
+This will run Karma, and try to launch Google Chrome. You can change what browser it launched in the config. Also, I
+have it set to continuous integration mode, since that's the easiest for me while developing.
+
 ## License
 
 Licensed under the MIT license. See LICENSE for details.
