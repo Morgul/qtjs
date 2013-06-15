@@ -24,23 +24,11 @@
     API To Be Implemented:                                      Notes:
     ==============================                              =======================================
     T &	back()                                                  // Do we need? Same as QList.last()
-    int	count(const T & value) const                            // use Array.filter
-    int	count() const                                           // Same function as above; just check value, and short-circuit to array.length
-    bool	empty() const                                       // Same as QList.isEmpty()
-    bool	endsWith(const T & value) const                     // return array[array.length] == value;
-    T &	first()                                                 // return array[0];
     T &	front()                                                 // Do we need? Same as QList.first()
-    void	insert(int i, const T & value)                      // use Array.splice.
-    bool	isEmpty() const                                     // return array.length == 0;
-    T &	last()                                                  // return array[array.length];
-    int	lastIndexOf(const T & value, int from = -1) const       // Should use a traditional for loop for speed.
-    QList<T>	mid(int pos, int length = -1) const             // Basically Array.splice;
-    void	move(int from, int to)                              // Can be implemented with Array.splice
     void	pop_back()                                          // Do we need? Same as QList.removeLast()
     void	pop_front()                                         // Do we need? Same as QList.removeFirst()
-    void	prepend(const T & value)                            // Use Array.splice
     void	push_back(const T & value)                          // Do we need? Same as QList.append()
-    void	push_front(const T & value)                         // Do we need? Same as QList.append()
+    void	push_front(const T & value)                         // Do we need? Same as QList.prepend()
     int	removeAll(const T & value)                              // Use a traditional for loop for speed.
     void	removeAt(int i)                                     // Use Array.splice()
     void	removeFirst()                                       // Use Array.splice()
@@ -63,12 +51,18 @@
 
 // QList.append
 Object.defineProperty(Array.prototype, "append", {
-    value: function(e) { this.push(e); }
+    value: function(val) { this.push(val); }
 });
 
 // QList.at
 Object.defineProperty(Array.prototype, "at", {
-    value: function(i) { this[i]; }
+    value: function(idx) {
+        if(idx >= 0 && idx < this.length) {
+            return this[idx];
+        } else {
+            throw new Error('Invalid index');
+        }
+    }
 });
 
 // QList.clear
@@ -78,7 +72,87 @@ Object.defineProperty(Array.prototype, "clear", {
 
 // QList.contains
 Object.defineProperty(Array.prototype, "contains", {
-    value: function(e) { return this.indexOf(e) !== -1; }
+    value: function(val) { return this.indexOf(val) !== -1; }
+});
+
+// QList.count
+Object.defineProperty(Array.prototype, "count", {
+    value: function(val) {
+        if(val) { return this.filter(function(item){ return item == val; }).length }
+        return this.length;
+    }
+});
+
+// QList.empty
+Object.defineProperty(Array.prototype, "empty", {
+    value: function() { return this.length == 0 }
+});
+
+// QList.endsWith
+Object.defineProperty(Array.prototype, "endsWith", {
+    value: function(val) { return this[this.length - 1] == val }
+});
+
+// QList.first
+Object.defineProperty(Array.prototype, "first", {
+    value: function() { return this[0]; }
+});
+
+// QList.insert
+Object.defineProperty(Array.prototype, "insert", {
+    value: function(idx, val) {
+        this.splice(idx, 0, val);
+    }
+});
+
+// QList.isEmpty
+Object.defineProperty(Array.prototype, "isEmpty", {
+    value: function() { return this.length == 0 }
+});
+
+// QList.last
+Object.defineProperty(Array.prototype, "last", {
+    value: function() { return this[this.length - 1]; }
+});
+
+// QList.mid
+Object.defineProperty(Array.prototype, "mid", {
+    value: function(pos, length) {
+        var end;
+        length = length || -1;
+
+        if(length != -1) {
+            end = pos + length;
+        }
+
+        return this.slice(pos, end);
+    }
+});
+
+// QList.move
+Object.defineProperty(Array.prototype, "move", {
+    value: function(from, to) {
+        var item = this.splice(from, 1)[0];
+        this.splice(to, 0, item);
+    }
+});
+
+// QList.prepend
+Object.defineProperty(Array.prototype, "prepend", {
+    value: function(val) {
+        this.splice(0, 0, val);
+    }
+});
+
+// QList.removeAll
+Object.defineProperty(Array.prototype, "removeAll", {
+    value: function(val) {
+        for(var idx = 0; idx < this.length; idx++) {
+            if(this[idx] == val) {
+                this.splice(idx, 1);
+            }
+        }
+    }
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
