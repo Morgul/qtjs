@@ -29,13 +29,6 @@
     void	pop_front()                                         // Do we need? Same as QList.removeFirst()
     void	push_back(const T & value)                          // Do we need? Same as QList.append()
     void	push_front(const T & value)                         // Do we need? Same as QList.prepend()
-    int	removeAll(const T & value)                              // Use a traditional for loop for speed.
-    void	removeAt(int i)                                     // Use Array.splice()
-    void	removeFirst()                                       // Use Array.splice()
-    void	removeLast()                                        // Use Array.splice()
-    bool	removeOne(const T & value)                          // Use traditional for loop, Array.splice
-    void	replace(int i, const T & value)                     // Use Array.splice()
-    int	size() const                                            // return array.length;
     bool	startsWith(const T & value) const                   // return array[0] == value;
     void	swap(QList<T> & other)                              // Possibly with splice? Weird
     void	swap(int i, int j)                                  // Totally doable with splice, but needs to be an overload of above. Use Array.isArray() to test.
@@ -152,6 +145,55 @@ Object.defineProperty(Array.prototype, "removeAll", {
                 this.splice(idx, 1);
             }
         }
+    }
+});
+
+// QList.removeAt
+Object.defineProperty(Array.prototype, "removeAt", {
+    value: function(pos) {
+        this.splice(pos, 1);
+    }
+});
+
+// QList.removeFirst
+Object.defineProperty(Array.prototype, "removeFirst", {
+    value: function() {
+        this.splice(0, 1);
+    }
+});
+
+// QList.removeLast
+Object.defineProperty(Array.prototype, "removeLast", {
+    value: function() {
+        this.splice(this.length - 1, 1);
+    }
+});
+
+// QList.removeOne
+Object.defineProperty(Array.prototype, "removeOne", {
+    value: function(val) {
+        for(var idx = 0; idx < this.length; idx++) {
+            if(this[idx] == val) {
+                this.splice(idx, 1);
+                return true;
+            }
+        }
+
+        return false;
+    }
+});
+
+// QList.replace
+Object.defineProperty(Array.prototype, "replace", {
+    value: function(pos, val) {
+        this.splice(pos, 1, val);
+    }
+});
+
+// QList.size
+Object.defineProperty(Array.prototype, "size", {
+    value: function() {
+        return this.length;
     }
 });
 

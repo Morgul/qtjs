@@ -205,6 +205,82 @@ describe('QList API', function()
         });
     });
 
+    describe('removeAt', function()
+    {
+        it('should remove the item at the given position', function()
+        {
+            var tmp = ["Cheese", "Hamburger", "Lettuce"];
+            tmp.removeAt(1);
+
+            expect(tmp).toEqual(["Cheese", "Lettuce"]);
+        });
+    });
+
+    describe('removeFirst', function()
+    {
+        it('should remove the fist item in the list', function()
+        {
+            var tmp = ["Cheese", "Hamburger", "Lettuce"];
+            tmp.removeFirst();
+
+            expect(tmp).toEqual(["Hamburger", "Lettuce"]);
+        });
+    });
+
+    describe('removeLast', function()
+    {
+        it('should remove the last item in the list', function()
+        {
+            var tmp = ["Cheese", "Hamburger", "Lettuce"];
+            tmp.removeLast();
+
+            expect(tmp).toEqual(["Cheese", "Hamburger"]);
+        });
+    });
+
+    describe('removeOne', function()
+    {
+        it('should remove the first instance of the item matching `value`', function()
+        {
+            var tmp = ["Cheese", "Hamburger", "Cheese", "Lettuce"];
+            tmp.removeOne("Cheese");
+
+            expect(tmp).toEqual(["Hamburger", "Cheese", "Lettuce"]);
+        });
+
+        it('should return true if an item was successfully removed, otherwise return false', function()
+        {
+            var tmp = ["Cheese", "Hamburger", "Cheese", "Lettuce"];
+            var result = tmp.removeOne("Cheese");
+            var result2 = tmp.removeOne("Apples");
+
+            expect(tmp).toEqual(["Hamburger", "Cheese", "Lettuce"]);
+            expect(result).toBe(true);
+            expect(result2).toBe(false);
+        });
+    });
+
+    describe('replace', function()
+    {
+        it('should replace the item at position `pos` with the item `value`', function()
+        {
+            var tmp = ["Cheese", "Hamburger", "Cheese", "Lettuce"];
+            tmp.replace(2, "Chicken");
+
+            expect(tmp).toEqual(["Cheese", "Hamburger", "Chicken", "Lettuce"]);
+        });
+    });
+
+    describe('size', function()
+    {
+        it('should return the length of the list', function()
+        {
+            var tmp = [];
+            expect(tmp.size()).toEqual(0);
+            expect(tList.size()).toEqual(tList.length);
+        });
+    });
+
     /*
 
      describe('', function()
