@@ -29,12 +29,6 @@
     void	pop_front()                                         // Do we need? Same as QList.removeFirst()
     void	push_back(const T & value)                          // Do we need? Same as QList.append()
     void	push_front(const T & value)                         // Do we need? Same as QList.prepend()
-    bool	startsWith(const T & value) const                   // return array[0] == value;
-    void	swap(QList<T> & other)                              // Possibly with splice? Weird
-    void	swap(int i, int j)                                  // Totally doable with splice, but needs to be an overload of above. Use Array.isArray() to test.
-    T	takeAt(int i)                                           // Use Array.splice()
-    T	takeFirst()                                             // Use Array.splice()
-    T	takeLast()                                              // Use Array.splice()
     QSet<T>	toSet() const                                       // Since we don't have sets, not sure how much sense this makes? Perhaps, 'removeDuplicates'?
     T	value(int i) const                                      // Just like array[i]; we don't have the concept of a 'default constructed value'
     T	value(int i, const T & defaultValue) const              // Just like array[i], but we return default if it doesn't exist.
@@ -194,6 +188,60 @@ Object.defineProperty(Array.prototype, "replace", {
 Object.defineProperty(Array.prototype, "size", {
     value: function() {
         return this.length;
+    }
+});
+
+// QList.startsWith
+Object.defineProperty(Array.prototype, "startsWith", {
+    value: function(val) {
+        return this[0] == val;
+    }
+});
+
+// QList.swap
+Object.defineProperty(Array.prototype, "swap", {
+    value: function(i, j) {
+        if(Array.isArray(i))
+        {
+            var other = this.splice.apply(this, [0, this.length].concat(i));
+            i.splice.apply(i, [0, i.length].concat(other));
+        } else {
+            var elem = this[i];
+            this[i] = this[j];
+            this[j] = elem;
+        }
+    }
+});
+
+// QList.takeAt
+Object.defineProperty(Array.prototype, "takeAt", {
+    value: function(idx) {
+        return this.splice(idx, 1)[0];
+    }
+});
+
+// QList.takeFirst
+Object.defineProperty(Array.prototype, "takeFirst", {
+    value: function() {
+        return this.splice(0, 1)[0];
+    }
+});
+
+// QList.takeLast
+Object.defineProperty(Array.prototype, "takeLast", {
+    value: function() {
+        return this.splice(this.length - 1, 1)[0];
+    }
+});
+
+// QList.value
+Object.defineProperty(Array.prototype, "value", {
+    value: function(idx, def) {
+        if(idx >= 0 && idx < this.length) {
+            return this[idx];
+        } else {
+            return def;
+        }
     }
 });
 

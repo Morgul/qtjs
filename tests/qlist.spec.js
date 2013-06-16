@@ -281,17 +281,95 @@ describe('QList API', function()
         });
     });
 
-    /*
+    describe('startsWith', function()
+    {
+        it('should return true if the list starts with `value`', function()
+        {
+            expect(tList.startsWith("Cheese")).toBe(false);
+            expect(tList.startsWith("Apples")).toBe(true);
+        });
+    });
 
-     describe('', function()
-     {
-         it('', function()
-         {
+    describe('swap', function()
+    {
+        it('should swap the contents of the list with the first argument, if its an array', function()
+        {
+            var tmp = ["Cheese", "Hamburger", "Lettuce"];
+            var tmp2 = ["Apples", "Oranges", "Cherries"];
 
-         });
-     });
+            var tmp_cpy = tmp.slice(0);
+            var tmp2_cpy = tmp2.slice(0);
 
-     */
+            tmp.swap(tmp2);
+
+            expect(tmp).toEqual(tmp2_cpy);
+            expect(tmp2).toEqual(tmp_cpy);
+        });
+
+        it('should swap the value at position i with the value at position j, if two integers are passed', function()
+        {
+            var tmp = ["Apples", "Oranges", "Cherries", "Limes", "Lemons"];
+            tmp.swap(1, 3);
+
+            expect(tmp).toEqual(["Apples", "Limes", "Cherries", "Oranges", "Lemons"]);
+        });
+
+        it('should swap the value at position i with the value at position j, if two integers are passed in descending order', function()
+        {
+            var tmp = ["Apples", "Oranges", "Cherries", "Limes", "Lemons"];
+            tmp.swap(3, 1);
+
+            expect(tmp).toEqual(["Apples", "Limes", "Cherries", "Oranges", "Lemons"]);
+        });
+    });
+
+    describe('takeAt', function()
+    {
+        it('should remove the item at `idx` and return it', function()
+        {
+            var tmp = ["Apples", "Oranges", "Cherries", "Limes", "Lemons"];
+            var elem = tmp.takeAt(2);
+
+            expect(elem).toBe("Cherries");
+        });
+    });
+
+    describe('takeFirst', function()
+    {
+        it('should remove the first item in the list and return it', function()
+        {
+            var tmp = ["Apples", "Oranges", "Cherries"];
+            var elem = tmp.takeFirst();
+
+            expect(elem).toBe("Apples");
+        });
+    });
+
+    describe('takeLast', function()
+    {
+        it('should remove the last item in the list and return it', function()
+        {
+            var tmp = ["Apples", "Oranges", "Cherries"];
+            var elem = tmp.takeLast();
+
+            expect(elem).toBe("Cherries");
+        });
+    });
+
+    describe('value', function()
+    {
+        it('should return the value at `idx`', function()
+        {
+            var tmp = ["Apples", "Oranges", "Cherries"];
+            expect(tmp.value(0)).toBe("Apples");
+        });
+
+        it('should return `default` if `idx` is outside the bounds of the list', function()
+        {
+            var tmp = ["Apples", "Oranges", "Cherries"];
+            expect(tmp.value(4, "Hamburger")).toBe("Hamburger");
+        });
+    });
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
