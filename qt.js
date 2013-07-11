@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------------------------------------------------
-// This script implements QList, QString and QHash styles apis on top of javascript's Array, String, and Object types.
+// This script implements QList, QString and QMap styles apis on top of javascript's Array, String, and Object types.
 // It should be noted that this modifies the prototypes of the built-in classes, and may cause issue with some third
 // party libraries.
 //

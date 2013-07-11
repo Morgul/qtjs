@@ -1,7 +1,7 @@
 # Qtjs
 
 This is an implementation of some of Qt's core types, ontop of Javascript's core types. This project modifies the
-prototypes of Array, String, and Object to adhere closer to QList, QString, and QHash. This makes Javascript much easier
+prototypes of Array, String, and Object to adhere closer to QList, QString, and QMap. This makes Javascript much easier
 to work with from inside QML.
 
 ## But, isn't modifying prototypes bad?
@@ -17,7 +17,7 @@ or at the very least, Qt's API.
 
 That's what this is for.
 
-## Why not make QList, QString and QHash work-alikes?
+## Why not make QList, QString and QMap work-alikes?
 
 Great question. Mostly, because I'm a bit lazy, it's slightly more work, and you'll be wrapping values returned from Qt
 in these custom types constantly.
