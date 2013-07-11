@@ -301,7 +301,7 @@ Object.defineProperty(Object.prototype, "clear", {
 
 // QMap.contains()
 Object.defineProperty(Object.prototype, "contains", {
-    value: function() {
+    value: function(val) {
         for(var k in this) {
             if(this.hasOwnProperty(k) && this[k] === val) {
                 return true;
