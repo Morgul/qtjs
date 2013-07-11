@@ -246,3 +246,82 @@ Object.defineProperty(Array.prototype, "value", {
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
+// QMap API
+//
+// Incompatibilities:
+// ==================
+//
+//      QList.length() - This would shadow Array.length, which would break a large percentage of javascript libraries. As
+//          such, we don't implement this. Use the `Array.length` property or `size()` instead.
+//
+// ---------------------------------------------------------------------------------------------------------------------
+
+/*
+    API To Be Implemented:                                      Notes:
+    ==============================                              =======================================
+    int	count(const Key & key) const
+    int	count() const
+    bool	empty() const
+    QPair<iterator, iterator>	equal_range(const Key & key)
+    iterator	erase(iterator pos)
+    iterator	find(const Key & key)
+    const_iterator	find(const Key & key) const
+    iterator	insert(const Key & key, const T & value)
+    iterator	insertMulti(const Key & key, const T & value)
+    bool	isEmpty() const
+    QList<Key>	keys() const
+    QList<Key>	keys(const T & value) const
+    iterator	lowerBound(const Key & key)
+    const_iterator	lowerBound(const Key & key) const
+    int	remove(const Key & key)
+    int	size() const
+    void	swap(QMap<Key, T> & other)
+    T	take(const Key & key)
+    std::map<Key, T>	toStdMap() const
+    QList<Key>	uniqueKeys() const
+    QMap<Key, T> &	unite(const QMap<Key, T> & other)
+    iterator	upperBound(const Key & key)
+    const_iterator	upperBound(const Key & key) const
+    const T	value(const Key & key, const T & defaultValue = T()) const
+    QList<T>	values() const
+    QList<T>	values(const Key & key) const
+
+ */
+
+// QMap.clear()
+Object.defineProperty(Object.prototype, "clear", {
+    value: function() {
+        for (k in this) {
+            if (this.hasOwnProperty(k)) {
+                delete this[k];
+            }
+        }
+    }
+});
+
+// QMap.contains()
+Object.defineProperty(Object.prototype, "contains", {
+    value: function() {
+        for(var k in this) {
+            if(this.hasOwnProperty(k) && this[k] === val) {
+                return true;
+            }
+        }
+        return false;
+    }
+});
+
+// QMap.count()
+Object.defineProperty(Object.prototype, "count", {
+    value: function() {
+        var count = 0;
+        for (var k in this) {
+            if (this.hasOwnProperty(k)) {
+                ++count;
+            }
+        }
+        return count;
+    }
+});
+
+// ---------------------------------------------------------------------------------------------------------------------
